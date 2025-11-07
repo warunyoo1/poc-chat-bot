@@ -6,19 +6,21 @@ AI Chatbot สำหรับให้คำแนะนำการดูแล
 
 ```
 ├── config/
-│   └── env.js              # โหลด environment variables
+│   └── env.js                                  # โหลด environment variables
 ├── models/
-│   └── DurianModel.js      # จัดการข้อมูลจาก data.json
+│   └── DurianModel.js                          # จัดการข้อมูลจาก data/
 ├── controllers/
-│   └── ChatController.js   # จัดการ HTTP request/response
+│   └── ChatController.js                       # จัดการ HTTP request/response
 ├── services/
-│   └── ChatService.js      # Business logic และเชื่อมต่อ Gemini AI
+│   └── ChatService.js                          # Business logic และเชื่อมต่อ Gemini AI
 ├── routes/
-│   └── chatRoutes.js       # กำหนด API endpoints
-├── data.json               # ข้อมูลการดูแลทุเรียน (13 ระยะ)
-├── server.js               # Entry point
-├── .env                    # Environment variables (API keys)
-└── package.json            # Dependencies
+│   └── chatRoutes.js                           # กำหนด API endpoints
+├── data/
+│   ├── service-management-table.json           # ข้อมูลการดูแลทุเรียน (13 ระยะ)
+│   └── development-stage-table.json            # ตารางระยะการพัฒนาตามภูมิภาค
+├── server.js                                   # Entry point
+├── .env                                        # Environment variables (API keys)
+└── package.json                                # Dependencies
 ```
 
 ## 🔄 Flow การทำงาน
@@ -51,7 +53,7 @@ controllers/ChatController.js
         ↓
       1. โหลดข้อมูลจาก models/DurianModel.js
          ↓
-      2. DurianModel อ่านข้อมูลจาก data.json
+      2. DurianModel อ่านข้อมูลจาก data/service-management-table.json
          ↓
       3. สร้าง system instruction พร้อมข้อมูลทุเรียน
          ↓
@@ -73,7 +75,7 @@ controllers/ChatController.js
 ### 3. โครงสร้าง MVC
 
 **Model (DurianModel.js)**
-- จัดการข้อมูลจาก data.json
+- จัดการข้อมูลจาก data/service-management-table.json
 - ฟังก์ชัน: `getAllStages()`, `findStageByName()`, `searchByKeyword()`
 
 **View**
@@ -219,7 +221,7 @@ curl http://localhost:3000/api/stages
 ### System Instruction
 AI ได้รับคำสั่งให้:
 1. ตอบเป็นภาษาไทยที่เป็นกันเอง
-2. ใช้ข้อมูลจาก data.json เท่านั้น
+2. ใช้ข้อมูลจาก data/service-management-table.json เท่านั้น
 3. ตอบเฉพาะที่ถาม (น้ำ, ปุ๋ย, ระยะต่างๆ)
 4. ใช้ emoji ให้เหมาะสม
 5. จัดรูปแบบให้อ่านง่าย
